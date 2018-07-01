@@ -18,10 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".users.LogInActivity" />
-        <activity android:name=".users.SignUpActivity" />
-        <activity android:name=".AddJournalActivity" />
-        <activity android:name=".UpdateJournalActivity"></activity>
+        <activity android:name=".users.LogInActivity" android:label="@string/login_button_label"/>
+        <activity android:name=".users.SignUpActivity" android:label="@string/sign_up_button_label"/>
+        <activity android:name=".AddJournalActivity" android:label="@string/title_activity_add_journal"/>
+        <activity android:name=".UpdateJournalActivity" android:label="@string/title_activity_update_journal"></activity>
     </application>
 
 </manifest>

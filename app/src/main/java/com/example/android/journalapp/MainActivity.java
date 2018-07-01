@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class MainActivity extends AppCompatActivity implements JournalAdapter.ItemClickListener{
+public class MainActivity extends AppCompatActivity {
     private static final String DATE_FORMAT = "dd/MM/yyy";
     private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements JournalAdapter.It
         mRecyclerView = findViewById(R.id.journal_recycler);
         emptyDataTextView = findViewById(R.id.data_empty);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        journalAdapter = new JournalAdapter(journals, mUserId, this);
+        journalAdapter = new JournalAdapter(this, journals, mUserId);
         mRecyclerView.setAdapter(journalAdapter);
 
         mDatabase.child("users").child(mUserId).child("journals").addValueEventListener(new ValueEventListener() {
@@ -174,29 +174,7 @@ public class MainActivity extends AppCompatActivity implements JournalAdapter.It
     }
 
 
-    @Override
-    public void onItemClick(int position) {
 
-        openUpdateJournalActivity(mContent, mDate, mId);
-        if(toast != null) {
-            toast.cancel();
-        }
-
-        toast = Toast.makeText(this, "I just Clicked", Toast.LENGTH_SHORT);
-
-        toast.show();
-    }
-
-    @Override
-    public void onLongItemClick(int position) {
-        if(toast != null) {
-            toast.cancel();
-        }
-
-        toast = Toast.makeText(this, "I just Long Clicked", Toast.LENGTH_SHORT);
-
-        toast.show();
-    }
 
     private void openUpdateJournalActivity(String updateText, String updateDate, String id) {
         Intent updateJournalIntent = new Intent(context, UpdateJournalActivity.class);

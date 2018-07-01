@@ -15,5 +15,8 @@
     <string name="title_activity_login">Sign in</string>
     <string name="add_item">Add New Item</string>
     <string name="action_logout">Logout</string>
-    <string name="title_activity_add_journal">AddJournalActivity</string>
+    <string name="action_save">Save</string>
+    <string name="title_activity_add_journal">Add Journal</string>
+    <string name="title_activity_update_journal">Update Journal</string>
+
 </resources>

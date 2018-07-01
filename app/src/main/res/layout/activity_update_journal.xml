@@ -10,14 +10,12 @@
     tools:context=".UpdateJournalActivity">
 
     <EditText
+        android:textSize="12sp"
         android:id="@+id/journal_text_update"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/update_btn"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"/>
+        tools:text="enter your journal"
+        android:background="@null"/>
+
 
 </LinearLayout>

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +22,7 @@ public class UpdateJournalActivity extends AppCompatActivity {
 
     private static final String DATE_FORMAT = "dd/MM/yyy";
     private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
-    FirebaseHelper helper;
+    private FirebaseHelper helper;
     private RecyclerView mRecyclerView;
     private DatabaseReference mDatabase;
     private Context context;
@@ -29,7 +31,8 @@ public class UpdateJournalActivity extends AppCompatActivity {
     private String content;
     private String date;
     private Button saveBtn;
-    private String id;
+    private String mId;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,6 @@ public class UpdateJournalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_update_journal);
 
         editText = (EditText) findViewById(R.id.journal_text_update);
-        saveBtn = (Button) findViewById(R.id.update_btn);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mRecyclerView = (RecyclerView) findViewById(R.id.journal_recycler);
@@ -52,27 +54,43 @@ public class UpdateJournalActivity extends AppCompatActivity {
             userId = bundle.getString("USER_ID");
             content = bundle.getString("CONTENT");
             date = bundle.getString("DATE");
-            id = bundle.getString("ID");
+            mId = bundle.getString("ID");
+            position = bundle.getInt("POSITION");
         }
 
         editText.setText(content);
 
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String journalDesc = editText.getText().toString();
-                Date date = new Date();
-                String dateMain = dateFormat.format(date);
+    }
 
-                helper = new FirebaseHelper(context, mDatabase, mRecyclerView, userId);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.activity_menu, menu);
+        return true;
+    }
 
-                helper.updateData(id, journalDesc, dateMain);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-                editText.setText("");
-                finish();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_save) {
+            String journalDesc = editText.getText().toString();
+            Date date = new Date();
+            String dateMain = dateFormat.format(date);
 
-            }
-        });
+            helper = new FirebaseHelper(context, mDatabase, mRecyclerView, userId);
+
+            helper.updateData(mId, journalDesc, dateMain);
+
+            editText.setText("");
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

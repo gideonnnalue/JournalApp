@@ -41,7 +41,7 @@ public class FirebaseHelper {
     public void saveData(String journal, String date) {
 
         String id = mDb.child("users").child(mUserId).child("journals").push().getKey();
-        Journal journalEntry = new Journal(date, journal, id);
+        Journal journalEntry = new Journal(journal, date, id);
         mDb.child("users").child(mUserId).child("journals").push().setValue(journalEntry);
 //        .child("journal")
     }
@@ -68,9 +68,15 @@ public class FirebaseHelper {
 
     public void updateData(String id, String content, String date) {
         DatabaseReference databaseReference = mDb.child("users").child(mUserId).child("journals").child(id);
-        Journal journal = new Journal(id, content, date);
+        Journal journal = new Journal(content, date, id);
         databaseReference.setValue(journal);
         Toast.makeText(context, "Journal Updated succesfully", Toast.LENGTH_SHORT).show();
+    }
+
+    public void deleteData(String id) {
+        DatabaseReference databaseReference = mDb.child("users").child(mUserId).child("journals");
+        databaseReference.removeValue();
+
     }
 
     public void refreshData() {

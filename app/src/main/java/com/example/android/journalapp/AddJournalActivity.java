@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,13 +30,13 @@ public class AddJournalActivity extends AppCompatActivity {
     private String userId;
     private EditText editText;
     private Button saveBtn;
+    private String journalDesc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_journal);
 
         editText = (EditText) findViewById(R.id.journal_text_edit);
-        saveBtn = (Button) findViewById(R.id.save_btn);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mRecyclerView = (RecyclerView) findViewById(R.id.journal_recycler);
@@ -49,21 +51,36 @@ public class AddJournalActivity extends AppCompatActivity {
             userId = bundle.getString("USER_ID");
         }
 
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String journalDesc = editText.getText().toString();
-                Date date = new Date();
-                String dateMain = dateFormat.format(date);
+    }
 
-                helper = new FirebaseHelper(context, mDatabase, mRecyclerView, userId);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.activity_menu, menu);
+        return true;
+    }
 
-                helper.saveData(journalDesc, dateMain);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-                editText.setText("");
-                finish();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_save) {
+            journalDesc = editText.getText().toString();
+            Date date = new Date();
+            String dateMain = dateFormat.format(date);
 
-            }
-        });
+            helper = new FirebaseHelper(context, mDatabase, mRecyclerView, userId);
+
+            helper.saveData(journalDesc, dateMain);
+
+            editText.setText("");
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

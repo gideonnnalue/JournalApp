@@ -3,13 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin">
@@ -19,13 +20,18 @@
             android:padding="8dp"
             android:layout_height="wrap_content"
             android:id="@+id/journal_text_view"
+            android:textSize="@dimen/journal_content_text_size"
+            android:textColor="@color/primary_text"
             tools:text="journal"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:padding="8dp"
             android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingBottom="8dp"
             android:id="@+id/journal_date_text_view"
+            android:textColor="@color/colorPrimary"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             tools:text="date"/>
     </LinearLayout>
 
