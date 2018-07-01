@@ -74,7 +74,7 @@ public class FirebaseHelper {
     }
 
     public void deleteData(String id) {
-        DatabaseReference databaseReference = mDb.child("users").child(mUserId).child("journals");
+        DatabaseReference databaseReference = mDb.child("users").child(mUserId).child("journals").child(id);
         databaseReference.removeValue();
 
     }
